@@ -22,14 +22,14 @@ body {
     display: grid;
     justify-content: center;
     align-items: center;
-    background-color: dodgerblue;
+    background-color: #134e4a;
     grid-column: 1 / -1;
 }
 
 .main-content {
     display: grid;
     justify-content: center;
-    background-color: powderblue;
+    background-color: #0f766e;
     grid-row: 2 / 3;
     grid-column: 1 / -1;
 }

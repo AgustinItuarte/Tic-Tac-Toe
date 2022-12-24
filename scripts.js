@@ -1,9 +1,5 @@
 let tablaJuego = (function() {
     const pLista = document.querySelectorAll('p');
-    /* function agregarJugada(jugada) {
-        tabla.push(jugada);
-        return tabla;
-    } */
 
     return { pLista };
 })();
@@ -18,9 +14,20 @@ let mostrarTabla = (function() {
     return { cambiarCasilla };
 })();
 
+const jugador = (nombre, numero, tipoJugada) => {
+    return { nombre, numero, tipoJugada };
+}
+
+let juego = (function() {
+    let jugadas = tablaJuego.pLista;
+
+    const jugando = (jugador1, jugador2) => {
+        
+    }
+
+    return { jugando }
+})();
+
+const pepe = jugador('pepe', 1, 'x')
+console.log(pepe)
 mostrarTabla.cambiarCasilla(2, 'x');
-mostrarTabla.cambiarCasilla(5, 'x');
-mostrarTabla.cambiarCasilla(0, 'o');
-mostrarTabla.cambiarCasilla(1, 'o');
-
-
