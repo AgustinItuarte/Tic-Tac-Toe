@@ -1,21 +1,26 @@
 let tablaJuego = (function() {
-    const divLista = document.querySelectorAll('div');
+    const pLista = document.querySelectorAll('p');
     /* function agregarJugada(jugada) {
         tabla.push(jugada);
         return tabla;
     } */
 
-    return { divLista };
+    return { pLista };
 })();
 
 let mostrarTabla = (function() {
-    const divLista = tablaJuego.divLista;
+    const pLista = tablaJuego.pLista;
 
     function cambiarCasilla(casilla, jugada) {
-        return divLista[casilla].innerHTML = jugada;
+        return pLista[casilla].innerHTML = jugada;
     }
 
     return { cambiarCasilla };
 })();
 
-mostrarTabla.cambiarCasilla(7, 'x');
+mostrarTabla.cambiarCasilla(2, 'x');
+mostrarTabla.cambiarCasilla(5, 'x');
+mostrarTabla.cambiarCasilla(0, 'o');
+mostrarTabla.cambiarCasilla(1, 'o');
+
+
