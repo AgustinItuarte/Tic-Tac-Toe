@@ -22,12 +22,12 @@ let juego = (function() {
     let jugadas = tablaJuego.pLista;
 
     const jugando = (jugador1, jugador2) => {
-        
+        if (condition) {
+            
+        }
     }
 
     return { jugando }
 })();
 
-const pepe = jugador('pepe', 1, 'x')
-console.log(pepe)
 mostrarTabla.cambiarCasilla(2, 'x');
