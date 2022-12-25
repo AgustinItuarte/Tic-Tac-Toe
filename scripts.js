@@ -31,12 +31,18 @@ let juego = (function() {
         for (let i = 0; i < jugadas.length; i++) {
 
             jugadas[i].addEventListener('click', () => {
+                
+                let valor = comprobarJugadas.comprobar()
+                if(valor === 3) {
+                    turno = valor;
+                }
 
                 switch (turno) {
                     case 1:
                         if (jugadas[i].innerHTML === 'X' || jugadas[i].innerHTML === 'O') {
                             console.log('Selecciona otro');
-                        }else {
+                        }
+                        else {
                             mostrarTabla.cambiarCasilla(i, jugador1.tipoJugada);
                             turno = 2;
                         }
@@ -45,14 +51,15 @@ let juego = (function() {
                     case 2:
                         if (jugadas[i].innerHTML === 'X' || jugadas[i].innerHTML === 'O') {
                             console.log('Selecciona otro');
-                        }else {
+                        }
+                        else {
                             mostrarTabla.cambiarCasilla(i, jugador2.tipoJugada);
                             turno = 1;
                         }
                     break;
 
                     default:
-                        console.log('Fin')
+                        alert('Fin')
                     break;
                 }
 
@@ -64,6 +71,59 @@ let juego = (function() {
 
     return { jugando };
 
+})();
+
+//Comprueba las jugadas del tablero
+let comprobarJugadas = (function() {
+
+    function comprobar() {
+
+        const jugadas = tablaJuego.pLista;
+        const casilla1 = jugadas[0].innerHTML;
+        const casilla2 = jugadas[1].innerHTML;
+        const casilla3 = jugadas[2].innerHTML;
+        const casilla4 = jugadas[3].innerHTML;
+        const casilla5 = jugadas[4].innerHTML;
+        const casilla6 = jugadas[5].innerHTML;
+        const casilla7 = jugadas[6].innerHTML;
+        const casilla8 = jugadas[7].innerHTML;
+        const casilla9 = jugadas[8].innerHTML;
+
+        if(casilla1 === 'X' && casilla2 === 'X' && casilla3 === 'X'){
+            return 3;
+        }else if(casilla4 === 'X' && casilla5 === 'X' && casilla6 == 'X'){
+            return 3;
+        }else if(casilla7 === 'X' && casilla8 === 'X' && casilla9 === 'X'){
+            return 3;
+        }else if(casilla1 === 'X' && casilla4 === 'X' && casilla7 === 'X'){
+            return 3;
+        }else if(casilla2 === 'X' && casilla5 === 'X' && casilla8 === 'X'){
+            return 3;
+        }else if(casilla3 === 'X' && casilla6 === 'X' && casilla9 === 'X'){
+            return 3;
+        }else if(casilla1 === 'O' && casilla2 === 'O' && casilla3 === 'O'){
+            return 3;
+        }else if(casilla4 === 'O' && casilla5 === 'O' && casilla6 === 'O'){
+            return 3;
+        }else if(casilla7 === 'O' && casilla8 === 'O' && casilla9 === 'O'){
+            return 3;
+        }else if(casilla1 === 'O' && casilla4 === 'O' && casilla7 === 'O'){
+            return 3;
+        }else if(casilla2 === 'O' && casilla5 === 'O' && casilla8 === 'O'){
+            return 3;
+        }else if(casilla3 === 'O' && casilla6 === 'O' && casilla9 === 'O'){
+            return 3;
+        }else if(casilla3 === 'O' && casilla5 === 'O' && casilla7 === 'O'){
+            return 3;
+        }else if(casilla3 === 'X' && casilla5 === 'X' && casilla7 === 'X'){
+            return 3;
+        }else if(casilla1 === 'O' && casilla5 === 'O' && casilla9 === 'O'){
+            return 3;
+        }else if(casilla1 === 'X' && casilla5 === 'X' && casilla9 === 'X'){
+            return 3;
+        }
+    }
+    return { comprobar };
 })();
 
 const btnIngreso = document.querySelector('.btn-ingreso');
