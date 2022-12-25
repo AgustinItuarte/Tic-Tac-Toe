@@ -27,18 +27,33 @@ let juego = (function() {
         }
     }
 
-    return { jugando }
+    return { jugando };
 })();
 
-const btnJugar = document.querySelector('.btn-ingreso')
+const btnIngreso = document.querySelector('.btn-ingreso');
+const btnJugar = document.querySelector('.btn-jugar');
+const divIngreso = document.querySelector('.overlay');
 
-const mostrarIngreso = () => {
-    const divIngreso = document.querySelector('.overlay')
-    divIngreso.style.display = 'flex'
+
+const abrirIngreso = () => {
+    divIngreso.style.display = 'flex';
 }
 
-btnJugar.addEventListener('click', () => {
-    mostrarIngreso();
+const cerrarIngreso = () => {
+    divIngreso.style.display = 'none';
+}
+
+btnIngreso.addEventListener('click', () => {
+    abrirIngreso();
+})
+
+btnJugar.addEventListener('click', function(e) {
+    const form = document.querySelector('.form-jugadores')
+    let jugador1 = form.elements[0].value;
+    let jugador2 = form.elements[1].value;
+    
+    e.preventDefault();
+    cerrarIngreso();
 })
 
 mostrarTabla.cambiarCasilla(8, 'x');
