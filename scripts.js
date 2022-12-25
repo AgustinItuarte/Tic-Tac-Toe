@@ -23,33 +23,42 @@ const jugador = (nombre, numero, tipoJugada) => {
 
 //Modulo que controla el flujo del juego
 let juego = (function() {
-
     const jugadas = tablaJuego.pLista;
+    let turno = 1;
 
     const jugando = (jugador1, jugador2) => {
 
         for (let i = 0; i < jugadas.length; i++) {
 
             jugadas[i].addEventListener('click', () => {
-                
-                if (jugadas[i].innerHTML === 'X' || jugadas[i].innerHTML === 'O') {
-                    console.log('Selecciona otro');
-                } else {
-                    mostrarTabla.cambiarCasilla(i, jugador1.tipoJugada);
+
+                switch (turno) {
+                    case 1:
+                        if (jugadas[i].innerHTML === 'X' || jugadas[i].innerHTML === 'O') {
+                            console.log('Selecciona otro');
+                        }else {
+                            mostrarTabla.cambiarCasilla(i, jugador1.tipoJugada);
+                            turno = 2;
+                        }
+                    break;
+                        
+                    case 2:
+                        if (jugadas[i].innerHTML === 'X' || jugadas[i].innerHTML === 'O') {
+                            console.log('Selecciona otro');
+                        }else {
+                            mostrarTabla.cambiarCasilla(i, jugador2.tipoJugada);
+                            turno = 1;
+                        }
+                    break;
+
+                    default:
+                        console.log('Fin')
+                    break;
                 }
 
             })
 
         }
-
-        /* jugadas.forEach(p => {
-
-            p.addEventListener('click', () => {
-                p.innerHTML = jugador1.tipoJugada;
-                console.log(p)
-        })
-
-        }); */
 
     }
 
