@@ -30,4 +30,15 @@ let juego = (function() {
     return { jugando }
 })();
 
-mostrarTabla.cambiarCasilla(2, 'x');
+const btnJugar = document.querySelector('.btn-ingreso')
+
+const mostrarIngreso = () => {
+    const divIngreso = document.querySelector('.overlay')
+    divIngreso.style.display = 'flex'
+}
+
+btnJugar.addEventListener('click', () => {
+    mostrarIngreso();
+})
+
+mostrarTabla.cambiarCasilla(8, 'x');
