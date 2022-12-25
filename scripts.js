@@ -1,9 +1,11 @@
+//Lista de la cuadrilla de juego
 let tablaJuego = (function() {
     const pLista = document.querySelectorAll('p');
 
     return { pLista };
 })();
 
+//Modulo para mostrar jugadas en pantalla
 let mostrarTabla = (function() {
     const pLista = tablaJuego.pLista;
 
@@ -14,10 +16,12 @@ let mostrarTabla = (function() {
     return { cambiarCasilla };
 })();
 
+//Factory function para crear los jugadores
 const jugador = (nombre, numero, tipoJugada) => {
     return { nombre, numero, tipoJugada };
 }
 
+//Modulo que controla el flujo del juego
 let juego = (function() {
 
     const jugadas = tablaJuego.pLista;
@@ -27,8 +31,12 @@ let juego = (function() {
         for (let i = 0; i < jugadas.length; i++) {
 
             jugadas[i].addEventListener('click', () => {
-
-                mostrarTabla.cambiarCasilla(i, jugador1.tipoJugada);
+                
+                if (jugadas[i].innerHTML === 'X' || jugadas[i].innerHTML === 'O') {
+                    console.log('Selecciona otro');
+                } else {
+                    mostrarTabla.cambiarCasilla(i, jugador1.tipoJugada);
+                }
 
             })
 
