@@ -33,8 +33,10 @@ let juego = (function() {
             jugadas[i].addEventListener('click', () => {
                 
                 let valor = comprobarJugadas.comprobar()
-                if(valor === 3) {
-                    turno = valor;
+                if(valor === 'X') {
+                    turno = 'X';
+                } else if(valor === 'O') {
+                    turno = 'O';
                 }
 
                 switch (turno) {
@@ -59,7 +61,15 @@ let juego = (function() {
                     break;
 
                     default:
-                        alert('Fin')
+                        if (turno === 'X') {
+                            alert(`Ha ganado: ${jugador1.nombre}!!`)
+                            turno = 1;
+                            reiniciarTabla.reiniciar();
+                        } else {
+                            alert(`Ha ganado: ${jugador2.nombre}!!`)
+                            turno = 1;
+                            reiniciarTabla.reiniciar();
+                        }
                     break;
                 }
 
@@ -90,44 +100,58 @@ let comprobarJugadas = (function() {
         const casilla9 = jugadas[8].innerHTML;
 
         if(casilla1 === 'X' && casilla2 === 'X' && casilla3 === 'X'){
-            return 3;
+            return 'X'
         }else if(casilla4 === 'X' && casilla5 === 'X' && casilla6 == 'X'){
-            return 3;
+            return 'X'
         }else if(casilla7 === 'X' && casilla8 === 'X' && casilla9 === 'X'){
-            return 3;
+            return 'X'
         }else if(casilla1 === 'X' && casilla4 === 'X' && casilla7 === 'X'){
-            return 3;
+            return 'X'
         }else if(casilla2 === 'X' && casilla5 === 'X' && casilla8 === 'X'){
-            return 3;
+            return 'X'
         }else if(casilla3 === 'X' && casilla6 === 'X' && casilla9 === 'X'){
-            return 3;
+            return 'X'
         }else if(casilla1 === 'O' && casilla2 === 'O' && casilla3 === 'O'){
-            return 3;
+            return 'O'
         }else if(casilla4 === 'O' && casilla5 === 'O' && casilla6 === 'O'){
-            return 3;
+            return 'O'
         }else if(casilla7 === 'O' && casilla8 === 'O' && casilla9 === 'O'){
-            return 3;
+            return 'O'
         }else if(casilla1 === 'O' && casilla4 === 'O' && casilla7 === 'O'){
-            return 3;
+            return 'O'
         }else if(casilla2 === 'O' && casilla5 === 'O' && casilla8 === 'O'){
-            return 3;
+            return 'O'
         }else if(casilla3 === 'O' && casilla6 === 'O' && casilla9 === 'O'){
-            return 3;
+            return 'O'
         }else if(casilla3 === 'O' && casilla5 === 'O' && casilla7 === 'O'){
-            return 3;
+            return 'O'
         }else if(casilla3 === 'X' && casilla5 === 'X' && casilla7 === 'X'){
-            return 3;
+            return 'X'
         }else if(casilla1 === 'O' && casilla5 === 'O' && casilla9 === 'O'){
-            return 3;
+            return 'O'
         }else if(casilla1 === 'X' && casilla5 === 'X' && casilla9 === 'X'){
-            return 3;
+            return 'X'
         }
     }
     return { comprobar };
 })();
 
+//Reinicia el tablero
+let reiniciarTabla = (function() {
+    const jugadas = tablaJuego.pLista;
+    
+    function reiniciar(){
+        jugadas.forEach(p => {
+            p.innerHTML = '';
+        });
+    }
+    
+    return { reiniciar };
+})();
+
 const btnIngreso = document.querySelector('.btn-ingreso');
 const btnJugar = document.querySelector('.btn-jugar');
+const btnReiniciar = document.querySelector('.btn-reiniciar')
 const divIngreso = document.querySelector('.overlay');
 
 
@@ -141,6 +165,7 @@ const cerrarIngreso = () => {
 
 btnIngreso.addEventListener('click', () => {
     abrirIngreso();
+    btnIngreso.style.display = 'none';
 })
 
 btnJugar.addEventListener('click', function(e) {
@@ -155,4 +180,8 @@ btnJugar.addEventListener('click', function(e) {
     const jugador2 = jugador(nomJugador2, 2, 'O')
 
     juego.jugando(jugador1, jugador2);
+})
+
+btnReiniciar.addEventListener('click', () => {
+    reiniciarTabla.reiniciar();
 })
