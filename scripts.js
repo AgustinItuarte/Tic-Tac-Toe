@@ -84,6 +84,7 @@ let juego = (function() {
                             alert(`Ha ganado: ${jugador2.nombre}!!`)
                             turno = 1;
                             reiniciarTabla.reiniciar();
+                            //Jugador2.puntaje++
                         }
                     break;
                 }
