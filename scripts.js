@@ -7,13 +7,28 @@ let tablaJuego = (function() {
 
 //Modulo para mostrar jugadas en pantalla
 let mostrarTabla = (function() {
+    let contador = 1;
     const pLista = tablaJuego.pLista;
 
     function cambiarCasilla(casilla, jugada) {
         return pLista[casilla].innerHTML = jugada;
     }
 
-    return { cambiarCasilla };
+    function cambiarRandom(casilla, jugada) {
+        while (pLista[casilla].innerHTML === 'X' || pLista[casilla].innerHTML === 'O') {
+            contador++
+            casilla = Math.floor(Math.random() * 9)
+
+            if (contador === 1000) {
+                contador = 0;
+                return pLista[casilla].innerHTML = jugada;
+            }
+        }
+        
+        return pLista[casilla].innerHTML = jugada;
+    }
+
+    return { cambiarCasilla, cambiarRandom };
 })();
 
 //Factory function para crear los jugadores
@@ -153,7 +168,7 @@ let juegoAI = (function() {
                 } else if(valor === 'O') {
                     turno = 'O';
                 }
-                
+
                 switch (turno) {
                     case 1:
                         if (jugadas[i].innerHTML === 'X' || jugadas[i].innerHTML === 'O') {
@@ -161,8 +176,7 @@ let juegoAI = (function() {
                         }
                         else {
                             mostrarTabla.cambiarCasilla(i, jugador1.tipoJugada);
-                            let random = Math.floor(Math.random() * 8) + 1
-                            mostrarTabla.cambiarCasilla(random, cpu.tipoJugada);
+                            mostrarTabla.cambiarRandom(i, cpu.tipoJugada);
                         }
                         break;
 
