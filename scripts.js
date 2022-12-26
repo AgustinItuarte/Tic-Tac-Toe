@@ -136,6 +136,68 @@ let comprobarJugadas = (function() {
     return { comprobar };
 })();
 
+let juegoAI = (function() {
+    const jugadas = tablaJuego.pLista;
+    let turno = 1;
+
+    const jugando = (jugador1, cpu) => {
+
+        for (let i = 0; i < jugadas.length; i++) {
+
+            jugadas[i].addEventListener('click', () => {
+                
+                let valor = comprobarJugadas.comprobar()
+                if(valor === 'X') {
+                    turno = 'X';
+                } else if(valor === 'O') {
+                    turno = 'O';
+                }
+
+                switch (turno) {
+                    case 1:
+                        if (jugadas[i].innerHTML === 'X' || jugadas[i].innerHTML === 'O') {
+                            console.log('Selecciona otro');
+                        }
+                        else {
+                            mostrarTabla.cambiarCasilla(i, jugador1.tipoJugada);
+                            turno = 2;
+                        }
+                    break;
+                        
+                    case 2:
+                        if (jugadas[i].innerHTML === 'X' || jugadas[i].innerHTML === 'O') {
+                            console.log('Selecciona otro');
+                        }
+                        else {
+                            let random = Math.floor((Math.random() * 8) + 1)
+                            mostrarTabla.cambiarCasilla(random, cpu.tipoJugada);
+                            turno = 1;
+                        }
+                    break;
+
+                    default:
+                        if (turno === 'X') {
+                            alert(`Ha ganado: ${jugador1.nombre}!!`)
+                            turno = 1;
+                            reiniciarTabla.reiniciar();
+                        } else {
+                            alert(`Ha ganado: ${cpu.nombre}!!`)
+                            turno = 1;
+                            reiniciarTabla.reiniciar();
+                        }
+                    break;
+                }
+
+            })
+
+        }
+
+    }
+
+    return { jugando };
+
+})();
+
 //Reinicia el tablero
 let reiniciarTabla = (function() {
     const jugadas = tablaJuego.pLista;
@@ -151,6 +213,7 @@ let reiniciarTabla = (function() {
 
 const btnIngreso = document.querySelector('.btn-ingreso');
 const btnJugar = document.querySelector('.btn-jugar');
+const btn_ai = document.querySelector('.btn-ai')
 const btnReiniciar = document.querySelector('.btn-reiniciar')
 const divIngreso = document.querySelector('.overlay');
 
@@ -180,6 +243,13 @@ btnJugar.addEventListener('click', function(e) {
     const jugador2 = jugador(nomJugador2, 2, 'O')
 
     juego.jugando(jugador1, jugador2);
+})
+
+btn_ai.addEventListener('click', () => {
+    const jugador1 = jugador('Jugador1', 1, 'X')
+    const cpu = jugador('CPU', 2, 'O')
+
+    juegoAI.jugando(jugador1, cpu);
 })
 
 btnReiniciar.addEventListener('click', () => {
