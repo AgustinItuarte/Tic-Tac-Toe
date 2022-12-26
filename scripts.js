@@ -136,6 +136,7 @@ let comprobarJugadas = (function() {
     return { comprobar };
 })();
 
+//Modulo que controla flujo del juego contra la AI
 let juegoAI = (function() {
     const jugadas = tablaJuego.pLista;
     let turno = 1;
@@ -143,7 +144,7 @@ let juegoAI = (function() {
     const jugando = (jugador1, cpu) => {
 
         for (let i = 0; i < jugadas.length; i++) {
-
+            
             jugadas[i].addEventListener('click', () => {
                 
                 let valor = comprobarJugadas.comprobar()
@@ -152,7 +153,7 @@ let juegoAI = (function() {
                 } else if(valor === 'O') {
                     turno = 'O';
                 }
-
+                
                 switch (turno) {
                     case 1:
                         if (jugadas[i].innerHTML === 'X' || jugadas[i].innerHTML === 'O') {
@@ -160,36 +161,28 @@ let juegoAI = (function() {
                         }
                         else {
                             mostrarTabla.cambiarCasilla(i, jugador1.tipoJugada);
-                            turno = 2;
-                        }
-                    break;
-                        
-                    case 2:
-                        if (jugadas[i].innerHTML === 'X' || jugadas[i].innerHTML === 'O') {
-                            console.log('Selecciona otro');
-                        }
-                        else {
-                            let random = Math.floor((Math.random() * 8) + 1)
+                            let random = Math.floor(Math.random() * 8) + 1
                             mostrarTabla.cambiarCasilla(random, cpu.tipoJugada);
-                            turno = 1;
                         }
-                    break;
+                        break;
 
                     default:
                         if (turno === 'X') {
+
                             alert(`Ha ganado: ${jugador1.nombre}!!`)
                             turno = 1;
                             reiniciarTabla.reiniciar();
+
                         } else {
+
                             alert(`Ha ganado: ${cpu.nombre}!!`)
                             turno = 1;
                             reiniciarTabla.reiniciar();
+
                         }
-                    break;
+                        break;
                 }
-
             })
-
         }
 
     }
@@ -226,9 +219,18 @@ const cerrarIngreso = () => {
     divIngreso.style.display = 'none';
 }
 
+const cerrarBtnIngreso = () => {
+    btnIngreso.style.display = 'none';
+}
+
+const cerrarBtnAI = () => {
+    btn_ai.style.display = 'none';
+}
+
 btnIngreso.addEventListener('click', () => {
     abrirIngreso();
     btnIngreso.style.display = 'none';
+    btn_ai.style.display = 'none';
 })
 
 btnJugar.addEventListener('click', function(e) {
@@ -246,6 +248,8 @@ btnJugar.addEventListener('click', function(e) {
 })
 
 btn_ai.addEventListener('click', () => {
+    cerrarBtnAI();
+    cerrarBtnIngreso();
     const jugador1 = jugador('Jugador1', 1, 'X')
     const cpu = jugador('CPU', 2, 'O')
 
