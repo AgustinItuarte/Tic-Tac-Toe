@@ -32,8 +32,8 @@ let mostrarTabla = (function() {
 })();
 
 //Factory function para crear los jugadores
-const jugador = (nombre, numero, tipoJugada) => {
-    return { nombre, numero, tipoJugada };
+const jugador = (nombre, puntuacion, tipoJugada) => {
+    return { nombre, puntuacion, tipoJugada };
 }
 
 //Modulo que controla el flujo del juego
@@ -43,17 +43,19 @@ let juego = (function() {
 
     const jugando = (jugador1, jugador2) => {
 
+        mostrarJugadores.mostrar(jugador1, jugador2, 2);
+
         for (let i = 0; i < jugadas.length; i++) {
 
             jugadas[i].addEventListener('click', () => {
-                
+                mostrarJugadores.mostrar(jugador1, jugador2, turno);
                 let valor = comprobarJugadas.comprobar()
                 if(valor === 'X') {
                     turno = 'X';
                 } else if(valor === 'O') {
                     turno = 'O';
                 }
-
+                
                 switch (turno) {
                     case 1:
                         if (jugadas[i].innerHTML === 'X' || jugadas[i].innerHTML === 'O') {
@@ -61,7 +63,7 @@ let juego = (function() {
                         }
                         else {
                             mostrarTabla.cambiarCasilla(i, jugador1.tipoJugada);
-                            turno = 2;
+                            turno = 2;                  
                         }
                     break;
                         
@@ -80,11 +82,16 @@ let juego = (function() {
                             alert(`Ha ganado: ${jugador1.nombre}!!`)
                             turno = 1;
                             reiniciarTabla.reiniciar();
+                            jugador1.puntuacion += 1;
+                            mostrarPuntaje.mostrar(jugador1, jugador2)
+                            mostrarJugadores.mostrar(jugador1, jugador2, 3);
                         } else {
                             alert(`Ha ganado: ${jugador2.nombre}!!`)
                             turno = 1;
                             reiniciarTabla.reiniciar();
-                            //Jugador2.puntaje++
+                            jugador2.puntuacion += 1;
+                            mostrarPuntaje.mostrar(jugador1, jugador2)
+                            mostrarJugadores.mostrar(jugador1, jugador2, 3);
                         }
                     break;
                 }
@@ -219,10 +226,52 @@ let reiniciarTabla = (function() {
     return { reiniciar };
 })();
 
+let mostrarJugadores = (function() {
+
+    function mostrar(jugador1, jugador2, turno){
+
+        const nom_jugador1 = document.querySelector('.jugador-1');
+        const nom_jugador2 = document.querySelector('.jugador-2');
+
+        nom_jugador1.innerHTML = jugador1.nombre;
+        nom_jugador2.innerHTML = jugador2.nombre;
+
+        if (turno === 1) {
+            nom_jugador1.style = 'background-color:none'
+            nom_jugador2.style = 'background-color:rgb(206, 59, 59)';
+            
+        } else if (turno === 2) {
+            nom_jugador1.style = 'background-color:rgb(206, 59, 59)';
+            nom_jugador2.style = 'background-color:none'
+        } else {
+            nom_jugador1.style = 'background-color:none'
+            nom_jugador2.style = 'background-color:none'
+        }
+
+    }
+
+    return { mostrar };
+})();
+
+let mostrarPuntaje = (function() {
+
+    function mostrar(jugador1, jugador2){
+
+        const partidas1 = document.querySelector('.partidas-1')
+        const partidas2 = document.querySelector('.partidas-2')
+
+        partidas1.innerHTML = `Partidas Ganadas:${jugador1.puntuacion}`;
+        partidas2.innerHTML = `Partidas Ganadas:${jugador2.puntuacion}`;
+
+    }
+
+    return { mostrar };
+})();
+
 const btnIngreso = document.querySelector('.btn-ingreso');
 const btnJugar = document.querySelector('.btn-jugar');
-const btn_ai = document.querySelector('.btn-ai')
-const btnReiniciar = document.querySelector('.btn-reiniciar')
+const btn_ai = document.querySelector('.btn-ai');
+const btnReiniciar = document.querySelector('.btn-reiniciar');
 const divIngreso = document.querySelector('.overlay');
 
 
@@ -256,8 +305,8 @@ btnJugar.addEventListener('click', function(e) {
     e.preventDefault();
     cerrarIngreso();
 
-    const jugador1 = jugador(nomJugador1, 1, 'X')
-    const jugador2 = jugador(nomJugador2, 2, 'O')
+    const jugador1 = jugador(nomJugador1, 0, 'X')
+    const jugador2 = jugador(nomJugador2, 0, 'O')
 
     juego.jugando(jugador1, jugador2);
 })
@@ -265,8 +314,8 @@ btnJugar.addEventListener('click', function(e) {
 btn_ai.addEventListener('click', () => {
     cerrarBtnAI();
     cerrarBtnIngreso();
-    const jugador1 = jugador('Jugador1', 1, 'X')
-    const cpu = jugador('CPU', 2, 'O')
+    const jugador1 = jugador('Jugador1', 0, 'X')
+    const cpu = jugador('CPU', 0, 'O')
 
     juegoAI.jugando(jugador1, cpu);
 })
