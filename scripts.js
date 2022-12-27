@@ -48,7 +48,9 @@ let juego = (function() {
         for (let i = 0; i < jugadas.length; i++) {
 
             jugadas[i].addEventListener('click', () => {
+
                 mostrarJugadores.mostrar(jugador1, jugador2, turno);
+                
                 let valor = comprobarJugadas.comprobar()
                 if(valor === 'X') {
                     turno = 'X';
@@ -166,8 +168,12 @@ let juegoAI = (function() {
 
     const jugando = (jugador1, cpu) => {
 
+        mostrarJugadores.mostrar(jugador1, cpu, 2);
+
         for (let i = 0; i < jugadas.length; i++) {
             
+            mostrarJugadores.mostrar(jugador1, cpu, 2);
+
             jugadas[i].addEventListener('click', () => {
                 
                 let valor = comprobarJugadas.comprobar()
@@ -177,6 +183,8 @@ let juegoAI = (function() {
                     turno = 'O';
                 }
 
+                mostrarJugadores.mostrar(jugador1, cpu, 2);
+                
                 switch (turno) {
                     case 1:
                         if (jugadas[i].innerHTML === 'X' || jugadas[i].innerHTML === 'O') {
@@ -194,13 +202,17 @@ let juegoAI = (function() {
                             alert(`Ha ganado: ${jugador1.nombre}!!`)
                             turno = 1;
                             reiniciarTabla.reiniciar();
-
+                            jugador1.puntuacion += 1;
+                            mostrarPuntaje.mostrar(jugador1, cpu)
+                            mostrarJugadores.mostrar(jugador1, cpu, 3);
                         } else {
 
                             alert(`Ha ganado: ${cpu.nombre}!!`)
                             turno = 1;
                             reiniciarTabla.reiniciar();
-
+                            cpu.puntuacion += 1;
+                            mostrarPuntaje.mostrar(jugador1, cpu)
+                            mostrarJugadores.mostrar(jugador1, cpu, 3);
                         }
                         break;
                 }
