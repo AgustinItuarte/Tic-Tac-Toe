@@ -280,6 +280,7 @@ let mostrarPuntaje = (function() {
     return { mostrar };
 })();
 
+//Elementos del DOM
 const btnIngreso = document.querySelector('.btn-ingreso');
 const btnJugar = document.querySelector('.btn-jugar');
 const btn_ai = document.querySelector('.btn-ai');
@@ -309,6 +310,7 @@ btnIngreso.addEventListener('click', () => {
     btn_ai.style.display = 'none';
 })
 
+//Eventos
 btnJugar.addEventListener('click', function(e) {
     const form = document.querySelector('.form-jugadores')
     let nomJugador1 = form.elements[0].value;

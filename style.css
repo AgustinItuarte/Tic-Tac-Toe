@@ -104,6 +104,7 @@ button {
     border-radius: 5px;
     border: 2px solid black;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    cursor: pointer;
 }
 
 button:hover {
@@ -147,6 +148,7 @@ p:active {
 p:hover {
     box-shadow: 0px 0px 5px black;
     transition: 0.1s;
+    cursor: pointer;
 }
 
 .tabla:hover {
